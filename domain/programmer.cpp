@@ -23,7 +23,7 @@ std::istream& operator>>(std::istream& input, Programmer& programmer){
 
 std::ostream& operator<<(std::ostream& output, const Programmer& programmer){
     std::string programmer_to_string = programmer.name + "," + std::to_string(programmer.revisedFiles) + "," +
-            std::to_string(programmer.mustRevise);
+            std::to_string(programmer.mustRevise) + "\n";
     output << programmer_to_string;
     return output;
 }

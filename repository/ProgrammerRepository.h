@@ -11,12 +11,13 @@
 class ProgrammerRepository: public Repository<Programmer>{
 private:
     std::vector<Programmer> programmers;
-    void load_from_file() override;
     void save_to_file() override;
 public:
     ProgrammerRepository(){;}
     ~ProgrammerRepository(){;}
     bool add(const Programmer& programmer) override;
+    void load_from_file() override;
+    std::vector<Programmer> get_programmers() const;
 };
 
 

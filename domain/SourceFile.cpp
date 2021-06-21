@@ -17,7 +17,7 @@ std::istream& operator>>(std::istream& input, SourceFile& sourceFile){
 }
 
 std::ostream& operator<<(std::ostream& output, const SourceFile& sourceFile){
-    std::string sourceFileToString = sourceFile.name + "," + sourceFile.status + ",";
+    std::string sourceFileToString = sourceFile.name + "," + sourceFile.status + "\n";
     output << sourceFileToString << sourceFile.creator << sourceFile.reviewer;
     return output;
 }

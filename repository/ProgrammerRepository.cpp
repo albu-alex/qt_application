@@ -13,7 +13,7 @@ bool ProgrammerRepository::add(const Programmer &programmer) {
 }
 
 void ProgrammerRepository::load_from_file() {
-    std::ifstream input("../programmers.txt");
+    std::ifstream input("D:\\clion_projects\\qt_application\\programmers.txt");
     if(!input.is_open())
         throw std::runtime_error("File could not open correctly!");
     Programmer new_programmer;
@@ -23,7 +23,7 @@ void ProgrammerRepository::load_from_file() {
 }
 
 void ProgrammerRepository::save_to_file() {
-    std::ofstream output("../programmers.txt");
+    std::ofstream output("D:\\clion_projects\\qt_application\\programmers.txt");
     if(!output.is_open())
         throw std::runtime_error("File could not open correctly!");
     for(const auto& programmer:this->programmers)
@@ -34,3 +34,6 @@ void ProgrammerRepository::save_to_file() {
     output.close();
 }
 
+std::vector<Programmer> ProgrammerRepository::get_programmers() const {
+    return this->programmers;
+}

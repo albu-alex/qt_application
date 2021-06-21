@@ -10,14 +10,15 @@
 
 class Service {
 private:
-    ProgrammerRepository programmerRepository;
+    Programmer programmer;
     SourceFileRepository sourceFileRepository;
 public:
-    Service(const ProgrammerRepository& _programmerRepository, const SourceFileRepository& _sourceFileRepository);
+    Service(const Programmer& _programmer, const SourceFileRepository& _sourceFileRepository);
     ~Service(){;}
     bool addSourceFile(const std::string& name, const Programmer& creatorProgrammer);
     void reviseSourceFile(const std::string& name);
     std::vector<SourceFile> get_sourceFileRepository() const;
+//    std::vector<Programmer> get_programmerRepository() const;
 };
 
 

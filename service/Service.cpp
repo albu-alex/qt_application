@@ -4,8 +4,8 @@
 
 #include "Service.h"
 
-Service::Service(const ProgrammerRepository &_programmerRepository,
-                 const SourceFileRepository &_sourceFileRepository):programmerRepository(_programmerRepository),sourceFileRepository(_sourceFileRepository)
+Service::Service(const Programmer &_programmer,
+                 const SourceFileRepository &_sourceFileRepository):programmer(_programmer),sourceFileRepository(_sourceFileRepository)
                  {this->sourceFileRepository.load_from_file();}
 
 

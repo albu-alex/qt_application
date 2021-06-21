@@ -37,6 +37,7 @@ void GUI::connect_signal_and_slots() {
 GUI::GUI(const Service &_service, QWidget *parent): service(_service), QWidget(parent) {
     this->init_gui();
     this->connect_signal_and_slots();
+    this->show();
 }
 
 void GUI::revisionButton_handler() {
