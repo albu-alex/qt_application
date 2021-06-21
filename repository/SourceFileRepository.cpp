@@ -13,7 +13,8 @@ bool SourceFileRepository::add(const SourceFile &sourceFile) {
 }
 
 void SourceFileRepository::load_from_file() {
-    std::ifstream input("../sources.txt");
+    std::ifstream input;
+    input.open("D:\\clion_projects\\qt_application\\sources.txt");
     if(!input.is_open())
         throw std::runtime_error("File could not open correctly!");
     SourceFile new_sourceFile;
@@ -23,7 +24,7 @@ void SourceFileRepository::load_from_file() {
 }
 
 void SourceFileRepository::save_to_file() {
-    std::ofstream output("../sources.txt");
+    std::ofstream output("D:\\clion_projects\\qt_application\\sources.txt");
     if(!output.is_open())
         throw std::runtime_error("File could not open correctly!");
     for(const auto& sourceFile:this->sourceFiles)

@@ -12,7 +12,7 @@ std::istream& operator>>(std::istream& input, Programmer& programmer){
 
     std::getline(input ,programmer.name, ',');
     std::getline(input, revisedFiles, ',');
-    std::getline(input, mustRevise);
+    std::getline(input, mustRevise, '\n');
 
     if(!revisedFiles.empty() && !mustRevise.empty()){
         programmer.revisedFiles = std::stoi(revisedFiles);

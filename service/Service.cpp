@@ -23,3 +23,7 @@ void Service::reviseSourceFile(const std::string &name) {
             return;
         }
 }
+
+std::vector<SourceFile> Service::get_sourceFileRepository() const {
+    return this->sourceFileRepository.get_sourceFiles();
+}

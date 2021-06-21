@@ -15,6 +15,7 @@
 #include <QMainWindow>
 #include <qstringlistmodel.h>
 #include <QSortFilterProxyModel>
+#include "AbstractModel.h"
 #define QT_GUI_H
 
 
@@ -22,6 +23,14 @@ class GUI: public QWidget{
     Q_OBJECT
 private:
     Service service;
+    AbstractModel* table;
+    QTableView* table_view;
+    QPushButton* revision, *add;
+    QLineEdit* file_name;
+    void init_gui();
+    void connect_signal_and_slots();
+    void revisionButton_handler();
+    void addButton_handler();
 public:
     explicit GUI(const Service& _service, QWidget* parent= nullptr);
     ~GUI() override{;}

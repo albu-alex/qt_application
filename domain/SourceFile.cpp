@@ -10,7 +10,7 @@ SourceFile::SourceFile(const std::string &_name, const std::string &_status, con
 
 std::istream& operator>>(std::istream& input, SourceFile& sourceFile){
     std::getline(input, sourceFile.name, ',');
-    std::getline(input, sourceFile.status, ',');
+    std::getline(input, sourceFile.status, '\n');
     input >> sourceFile.creator;
     input >> sourceFile.reviewer;
     return input;
