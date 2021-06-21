@@ -27,6 +27,7 @@ void GUI::init_gui() {
     QFormLayout* addNewFile = new QFormLayout{};
     addNewFile->addRow("New file name", this->file_name);
     main->addLayout(addNewFile);
+    QWidget::setWindowTitle(QString::fromStdString(service.get_programmer().get_name()));
 }
 
 void GUI::connect_signal_and_slots() {
@@ -34,14 +35,28 @@ void GUI::connect_signal_and_slots() {
     QObject::connect(this->add, &QPushButton::clicked, this, &GUI::addButton_handler);
 }
 
-GUI::GUI(const Service &_service, QWidget *parent): service(_service), QWidget(parent) {
+GUI::GUI(Service &_service, QWidget *parent): service(_service), QWidget(parent) {
     this->init_gui();
     this->connect_signal_and_slots();
     this->show();
 }
 
 void GUI::revisionButton_handler() {
-    ;
+    std::string name = this->file_name->text().toStdString();
+    if(name.empty()){
+        QMessageBox error;
+        error.setText("You must enter a file name to revise!");
+        error.exec();
+        return;
+    }
+    this->service.reviseSourceFile(name);
+    for(auto sourceFile : this->service.get_sourceFileRepository())
+        if(sourceFile.get_name() == name) {
+            QMessageBox revised;
+            revised.setText(QString::fromStdString(
+                    sourceFile.get_reviewerProgrammer().get_name() + " has reviewed another file!"));
+            revised.exec();
+        }
 }
 
 void GUI::addButton_handler() {

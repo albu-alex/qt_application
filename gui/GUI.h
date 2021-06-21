@@ -15,6 +15,7 @@
 #include <QMainWindow>
 #include <qstringlistmodel.h>
 #include <QSortFilterProxyModel>
+#include <QMessageBox>
 #include "AbstractModel.h"
 #define QT_GUI_H
 
@@ -22,7 +23,7 @@
 class GUI: public QWidget{
     Q_OBJECT
 private:
-    Service service;
+    Service& service;
     AbstractModel* table;
     QTableView* table_view;
     QPushButton* revision, *add;
@@ -32,7 +33,7 @@ private:
     void revisionButton_handler();
     void addButton_handler();
 public:
-    explicit GUI(const Service& _service, QWidget* parent= nullptr);
+    explicit GUI(Service& _service, QWidget* parent= nullptr);
     ~GUI() override{;}
 };
 

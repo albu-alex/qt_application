@@ -17,11 +17,5 @@ int main(int argc, char** argv){
     for(int i=0;i<programmers.size();i++)
         gui.push_back(new GUI{*services[i]});
     return a.exec();
-//    std::vector<Service*> programmers = service.get_programmerRepository();
-//    std::vector<GUI*> gui;
-//    for(int i=0;i<service.get_programmerRepository().size();i++) {
-//        gui.push_back(new GUI{})
-//    }
-//    return a.exec();
 }
 

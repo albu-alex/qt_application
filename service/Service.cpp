@@ -4,8 +4,8 @@
 
 #include "Service.h"
 
-Service::Service(const Programmer &_programmer,
-                 const SourceFileRepository &_sourceFileRepository):programmer(_programmer),sourceFileRepository(_sourceFileRepository)
+Service::Service(Programmer &_programmer,
+                 SourceFileRepository &_sourceFileRepository):programmer(_programmer),sourceFileRepository(_sourceFileRepository)
                  {this->sourceFileRepository.load_from_file();}
 
 
@@ -20,10 +20,15 @@ void Service::reviseSourceFile(const std::string &name) {
     for(auto s : sourceFiles)
         if(s.get_name() == name){
             s.get_reviewerProgrammer().increment_revised_files();
+            s.set_status("revised");
             return;
         }
 }
 
 std::vector<SourceFile> Service::get_sourceFileRepository() const {
     return this->sourceFileRepository.get_sourceFiles();
+}
+
+Programmer Service::get_programmer() const {
+    return this->programmer;
 }
