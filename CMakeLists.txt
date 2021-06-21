@@ -13,6 +13,14 @@ set(QT_VERSION 5)
 
 find_package(Qt5Widgets REQUIRED)
 
-add_executable(qt domain/programmer.cpp domain/programmer.h)
+include_directories(domain)
+include_directories(repository)
+add_executable(qt
+        domain/programmer.cpp
+        domain/programmer.h
+        domain/SourceFile.cpp
+        domain/SourceFile.h
+        repository/Repository.cpp
+        repository/Repository.h repository/ProgrammerRepository.cpp repository/ProgrammerRepository.h)
 
 target_link_libraries(qt Qt5::Widgets)

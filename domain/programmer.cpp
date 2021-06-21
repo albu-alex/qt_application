@@ -12,7 +12,7 @@ std::istream& operator>>(std::istream& input, Programmer& programmer){
 
     std::getline(input ,programmer.name, ',');
     std::getline(input, revisedFiles, ',');
-    std::getline(input, mustRevise, ',');
+    std::getline(input, mustRevise);
 
     if(!revisedFiles.empty() && !mustRevise.empty()){
         programmer.revisedFiles = std::stoi(revisedFiles);
@@ -26,4 +26,12 @@ std::ostream& operator<<(std::ostream& output, const Programmer& programmer){
             std::to_string(programmer.mustRevise);
     output << programmer_to_string;
     return output;
+}
+
+bool Programmer::operator==(const Programmer &other_programmer) {
+    return this->name == other_programmer.name;
+}
+
+bool Programmer::operator!=(const Programmer &other_programmer) {
+    return this->name != other_programmer.name;
 }
