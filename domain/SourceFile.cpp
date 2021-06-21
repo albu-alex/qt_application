@@ -21,3 +21,35 @@ std::ostream& operator<<(std::ostream& output, const SourceFile& sourceFile){
     output << sourceFileToString << sourceFile.creator << sourceFile.reviewer;
     return output;
 }
+
+bool SourceFile::operator==(const SourceFile &sourceFile) {
+    return this->name == sourceFile.name;
+}
+
+bool SourceFile::operator!=(const SourceFile &sourceFile) {
+    return this->name != sourceFile.name;
+}
+
+std::string SourceFile::get_name() const {
+    return this->name;
+}
+
+Programmer SourceFile::get_reviewerProgrammer() const {
+    return this->reviewer;
+}
+
+Programmer SourceFile::get_creatorProgrammer() const {
+    return this->creator;
+}
+
+std::string SourceFile::get_status() const {
+    return this->status;
+}
+
+void SourceFile::set_name(const std::string _name) {
+    this->name = _name;
+}
+
+void SourceFile::set_status(const std::string _status) {
+    this->status = _status;
+}

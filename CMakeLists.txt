@@ -15,12 +15,24 @@ find_package(Qt5Widgets REQUIRED)
 
 include_directories(domain)
 include_directories(repository)
+include_directories(service)
+include_directories(gui)
 add_executable(qt
         domain/programmer.cpp
         domain/programmer.h
         domain/SourceFile.cpp
         domain/SourceFile.h
         repository/Repository.cpp
-        repository/Repository.h repository/ProgrammerRepository.cpp repository/ProgrammerRepository.h)
+        repository/Repository.h
+        repository/ProgrammerRepository.cpp
+        repository/ProgrammerRepository.h
+        repository/SourceFileRepository.cpp
+        repository/SourceFileRepository.h
+        service/Service.cpp
+        service/Service.h
+        gui/GUI.cpp
+        gui/GUI.h
+        gui/AbstractModel.cpp
+        gui/AbstractModel.h)
 
 target_link_libraries(qt Qt5::Widgets)

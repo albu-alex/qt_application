@@ -20,6 +20,13 @@ public:
     friend std::ostream& operator<<(std::ostream& output, const Programmer& programmer);
     bool operator ==(const Programmer& other_programmer);
     bool operator !=(const Programmer& other_programmer);
+    void increment_revised_files();
+    std::string get_name() const;
+    int get_revisedFiles() const;
+    int get_mustRevise() const;
+    void set_name(const std::string& _name);
+    void set_revisedFiles(const int& _revisedFiles);
+    void set_mustRevise(const int& _mustRevise);
 };
 
 

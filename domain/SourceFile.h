@@ -14,10 +14,19 @@ private:
     Programmer creator;
     Programmer reviewer;
 public:
+    SourceFile(){;}
     SourceFile(const std::string& _name, const std::string& _status, const Programmer& _creator, const Programmer& _reviewer);
     ~SourceFile(){;}
     friend std::istream& operator>>(std::istream& input, SourceFile& sourceFile);
     friend std::ostream& operator<<(std::ostream& output, const SourceFile& sourceFile);
+    bool operator == (const SourceFile& sourceFile);
+    bool operator != (const SourceFile& sourceFile);
+    std::string get_name() const;
+    std::string get_status() const;
+    void set_name(const std::string name);
+    void set_status(const std::string status);
+    Programmer get_reviewerProgrammer() const;
+    Programmer get_creatorProgrammer() const;
 };
 
 

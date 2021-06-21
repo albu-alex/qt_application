@@ -35,3 +35,31 @@ bool Programmer::operator==(const Programmer &other_programmer) {
 bool Programmer::operator!=(const Programmer &other_programmer) {
     return this->name != other_programmer.name;
 }
+
+void Programmer::increment_revised_files() {
+    this->revisedFiles++;
+}
+
+std::string Programmer::get_name() const {
+    return this->name;
+}
+
+int Programmer::get_mustRevise() const {
+    return this->mustRevise;
+}
+
+int Programmer::get_revisedFiles() const {
+    return this->revisedFiles;
+}
+
+void Programmer::set_name(const std::string& _name) {
+    this->name = _name;
+}
+
+void Programmer::set_revisedFiles(const int &_revisedFiles) {
+    this->revisedFiles = _revisedFiles;
+}
+
+void Programmer::set_mustRevise(const int &_mustRevise) {
+    this->mustRevise = _mustRevise;
+}
