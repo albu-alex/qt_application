@@ -51,14 +51,22 @@ void GUI::revisionButton_handler() {
     }
     this->service.reviseSourceFile(name);
     for(auto sourceFile : this->service.get_sourceFileRepository())
-        if(sourceFile.get_name() == name) {
+        if(sourceFile.get_name() == name){
             QMessageBox revised;
             revised.setText(QString::fromStdString(
                     sourceFile.get_reviewerProgrammer().get_name() + " has reviewed another file!"));
             revised.exec();
         }
+    this->table->updateData();
 }
 
 void GUI::addButton_handler() {
-    ;
+    std::string name = this->file_name->text().toStdString();
+    if(name.empty()){
+        QMessageBox error;
+        error.setText("You must enter a file name to revise!");
+        error.exec();
+        return;
+    }
+    this->service.addSourceFile(name, this->service.get_programmer());
 }

@@ -133,3 +133,11 @@ bool AbstractModel::setData(const QModelIndex &index, const QVariant &value, int
     emit dataChanged(index, index);
     return true;
 }
+
+void AbstractModel::updateSourceFiles(const std::vector<SourceFile> newSourceFiles) {
+    this->sourceFiles = newSourceFiles;
+}
+
+void AbstractModel::updateData() {
+    endResetModel();
+}
