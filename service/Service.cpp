@@ -9,10 +9,11 @@ Service::Service(Programmer &_programmer,
                  {this->sourceFileRepository.load_from_file();}
 
 
-bool Service::addSourceFile(const std::string &name, const Programmer& creatorProgrammer) {
+void Service::addSourceFile(const std::string &name, const Programmer& creatorProgrammer) {
     Programmer reviewerProgrammer;
     SourceFile new_sourceFile{name, "not_revised", creatorProgrammer, reviewerProgrammer};
-    return this->sourceFileRepository.add(new_sourceFile);
+    this->sourceFileRepository.add(new_sourceFile);
+    this->sourceFileRepository.load_from_file();
 }
 
 void Service::reviseSourceFile(const std::string &name) {

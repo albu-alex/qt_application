@@ -11,7 +11,7 @@ void GUI::init_gui() {
     this->add = new QPushButton{"Add"};
     this->revision = new QPushButton{"Revise Source File"};
 
-    std::vector<SourceFile> sourceFiles = this->service.get_sourceFileRepository();
+    this->sourceFiles = this->service.get_sourceFileRepository();
     this->table = new AbstractModel{sourceFiles};
     this->table_view = new QTableView{};
     this->table_view->setModel(this->table);
@@ -33,6 +33,7 @@ void GUI::init_gui() {
 void GUI::connect_signal_and_slots() {
     QObject::connect(this->revision, &QPushButton::clicked, this, &GUI::revisionButton_handler);
     QObject::connect(this->add, &QPushButton::clicked, this, &GUI::addButton_handler);
+    QObject::connect(this->table_view, &QTableView::clicked, this, &GUI::checkIfReviseAvailable);
 }
 
 GUI::GUI(Service &_service, QWidget *parent): service(_service), QWidget(parent) {
@@ -57,6 +58,7 @@ void GUI::revisionButton_handler() {
                     sourceFile.get_reviewerProgrammer().get_name() + " has reviewed another file!"));
             revised.exec();
         }
+    this->service.get_programmer().set_revisedFiles(this->service.get_programmer().get_revisedFiles() + 1);
     this->table->updateData();
 }
 
@@ -69,4 +71,15 @@ void GUI::addButton_handler() {
         return;
     }
     this->service.addSourceFile(name, this->service.get_programmer());
+    this->table->updateData();
 }
+
+void GUI::notify_model() {
+    this->table->updateData();
+}
+
+void GUI::update() {
+    this->notify_model();
+}
+
+void GUI::checkIfReviseAvailable(){;}

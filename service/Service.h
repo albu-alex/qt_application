@@ -15,7 +15,7 @@ private:
 public:
     Service(Programmer& _programmer, SourceFileRepository& _sourceFileRepository);
     ~Service(){;}
-    bool addSourceFile(const std::string& name, const Programmer& creatorProgrammer);
+    void addSourceFile(const std::string& name, const Programmer& creatorProgrammer);
     void reviseSourceFile(const std::string& name);
     std::vector<SourceFile> get_sourceFileRepository() const;
     Programmer get_programmer() const;

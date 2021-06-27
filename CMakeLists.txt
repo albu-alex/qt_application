@@ -37,6 +37,6 @@ add_executable(qt
         gui/GUI.cpp
         gui/GUI.h
         gui/AbstractModel.cpp
-        gui/AbstractModel.h main.cpp)
+        gui/AbstractModel.h main.cpp gui/Observer.h)
 
 target_link_libraries(qt Qt5::Widgets)

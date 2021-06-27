@@ -9,6 +9,7 @@ bool SourceFileRepository::add(const SourceFile &sourceFile) {
         if(s == sourceFile)
             return false;
     this->sourceFiles.push_back(sourceFile);
+    this->save_to_file();
     return true;
 }
 
