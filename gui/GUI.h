@@ -35,7 +35,7 @@ private:
     QPushButton* add, *revise;
 public:
     explicit GUI(Programmer& _programmer, SourceFileRepository& _sourceFileRepository, QWidget* parent = nullptr);
-    ~GUI() override{this->sourceFileRepository.removeObserver(this)}
+    ~GUI() override{this->sourceFileRepository.removeObserver(this);}
     void init_gui();
     void connect_signal_and_slots();
     void update() override;

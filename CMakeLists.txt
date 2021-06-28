@@ -17,6 +17,7 @@ include_directories(domain)
 include_directories(repository)
 include_directories(service)
 include_directories(gui)
+include_directories(statistics)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/sources.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/programmers.txt
@@ -37,6 +38,10 @@ add_executable(qt
         gui/GUI.cpp
         gui/GUI.h
         gui/AbstractModel.cpp
-        gui/AbstractModel.h main.cpp gui/Observer.h)
+        gui/AbstractModel.h
+        main.cpp
+        gui/Observer.h
+        statistics/Statistics.cpp
+        statistics/Statistics.h)
 
 target_link_libraries(qt Qt5::Widgets)

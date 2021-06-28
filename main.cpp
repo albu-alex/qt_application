@@ -3,6 +3,7 @@
 //
 
 #include "GUI.h"
+#include "Statistics.h"
 #include <QtWidgets>
 int main(int argc, char** argv){
     QApplication a(argc, argv);
@@ -14,6 +15,8 @@ int main(int argc, char** argv){
     std::vector<GUI*> gui;
     for(int i=0;i<programmers.size();i++)
         gui.push_back(new GUI{programmers[i], sourceFileRepository});
+
+    Statistics statistics{programmerRepository, sourceFileRepository};
     return a.exec();
 }
 
