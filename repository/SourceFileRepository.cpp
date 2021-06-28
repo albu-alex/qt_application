@@ -40,3 +40,13 @@ void SourceFileRepository::save_to_file() {
 std::vector<SourceFile> SourceFileRepository::get_sourceFiles() const {
     return this->sourceFiles;
 }
+
+void SourceFileRepository::reviseFile(SourceFile &sourceFile) {
+    for(auto &file : this->sourceFiles)
+        if(sourceFile == file) {
+            file.set_status("revised");
+            file.get_reviewerProgrammer().increment_revised_files();
+        }
+    this->save_to_file();
+    this->notify();
+}

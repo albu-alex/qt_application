@@ -67,6 +67,12 @@ void GUI::addButton_handler() {
     this->sourceFileRepository.add(newSourceFile);
 }
 
-void GUI::revisionButton_handler() {;}
+void GUI::revisionButton_handler() {
+    std::string source_file = this->file_name->text().toStdString();
+    for(auto file:this->sourceFileRepository.get_sourceFiles())
+        if(file.get_name() == source_file){
+            this->sourceFileRepository.reviseFile(file);
+        }
+}
 
 int GUI::get_selected_index() {return 0;}

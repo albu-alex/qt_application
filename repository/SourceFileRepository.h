@@ -15,9 +15,10 @@ private:
     void save_to_file() override;
 public:
     SourceFileRepository(){;};
-    ~SourceFileRepository(){;}
+    ~SourceFileRepository() override{;}
     void load_from_file() override;
     bool add(const SourceFile& sourceFile) override;
+    void reviseFile(SourceFile& sourceFile);
     std::vector<SourceFile> get_sourceFiles() const;
 };
 
