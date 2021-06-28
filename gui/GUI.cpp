@@ -20,7 +20,7 @@ void GUI::update() {
 }
 
 void GUI::notify_model() {
-    this->table->updateData();
+    this->table->updateInternalData();
 }
 
 void GUI::init_gui() {
@@ -29,14 +29,15 @@ void GUI::init_gui() {
     this->add = new QPushButton{"Add"};
     this->revise = new QPushButton{"Revise File"};
 
-    std::vector<SourceFile> sourceFiles = this->sourceFileRepository.get_sourceFiles();
-    this->table = new AbstractModel{sourceFiles};
+    this->table = new AbstractModel{this->sourceFileRepository};
     this->table_view = new QTableView{};
 
     this->filterProxyModel = new QSortFilterProxyModel{};
     this->filterProxyModel->setSourceModel(this->table);
     this->table_view->setSortingEnabled(true);
     this->filterProxyModel->sort(0, Qt::AscendingOrder);
+
+    this->table_view->setModel(this->filterProxyModel);
 
     this->main->addWidget(this->table_view);
     this->buttons = new QGridLayout{};
@@ -55,3 +56,17 @@ void GUI::connect_signal_and_slots() {
     QObject::connect(this->add, &QPushButton::clicked, this, &GUI::addButton_handler);
     //available revise to implement next
 }
+
+void GUI::addButton_handler() {
+    std::string source_file = this->file_name->text().toStdString();
+    if(source_file.empty()){
+        QMessageBox::critical(this, "Error", "You should write a file name!");
+        return;
+    }
+    SourceFile newSourceFile{source_file, "not-revised", this->programmer, Programmer{"", 0, 0}};
+    this->sourceFileRepository.add(newSourceFile);
+}
+
+void GUI::revisionButton_handler() {;}
+
+int GUI::get_selected_index() {return 0;}

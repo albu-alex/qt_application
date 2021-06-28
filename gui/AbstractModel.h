@@ -6,19 +6,19 @@
 #include <QAbstractTableModel>
 #include <QFont>
 #include <vector>
-#include "SourceFile.h"
+#include "SourceFileRepository.h"
 #define NULL_INTEGER -111111111
 #define QT_ABSTRACTMODEL_H
 
 
 class AbstractModel:public QAbstractTableModel {
 private:
-    std::vector<SourceFile> sourceFiles;
+    SourceFileRepository& fileRepository;
     unsigned long long sourceFiles_count;
     const int font_size = 15;
     const std::string font_name = "Times New Roman";
 public:
-    explicit AbstractModel(std::vector<SourceFile>& _sourceFiles, QObject* parent= nullptr);
+    explicit AbstractModel(SourceFileRepository& _fileRepository, QObject* parent= nullptr);
     ~AbstractModel() override;
     int rowCount(const QModelIndex &parent = QModelIndex{}) const override;
     int columnCount(const QModelIndex &parent = QModelIndex{}) const override;
@@ -27,7 +27,7 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     void updateSourceFiles(const std::vector<SourceFile> newSourceFiles);
-    void updateData();
+    void updateInternalData();
 };
 
 

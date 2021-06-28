@@ -4,14 +4,14 @@
 
 #include "AbstractModel.h"
 
-AbstractModel::AbstractModel(std::vector<SourceFile> &_sourceFiles, QObject *parent): QAbstractTableModel{parent},sourceFiles(_sourceFiles) {
-    this->sourceFiles_count = _sourceFiles.size();
+AbstractModel::AbstractModel(SourceFileRepository& _fileRepository, QObject *parent): QAbstractTableModel{parent},fileRepository(_fileRepository) {
+    this->sourceFiles_count = _fileRepository.get_sourceFiles().size();
 }
 
 AbstractModel::~AbstractModel(){;}
 
 int AbstractModel::rowCount(const QModelIndex &parent) const {
-    return this->sourceFiles_count;
+    return this->fileRepository.get_sourceFiles().size();
 }
 
 int AbstractModel::columnCount(const QModelIndex &parent) const {
@@ -26,7 +26,7 @@ QVariant AbstractModel::data(const QModelIndex &index, int role) const {
         return qFont;
     }
     if(role == Qt::DisplayRole){
-        SourceFile currentSourceFile = this->sourceFiles[row];
+        SourceFile currentSourceFile = this->fileRepository.get_sourceFiles()[row];
         if(column < 0 || column > 7)
             throw std::runtime_error("Table Error! Wrong column count!");
         if(column == 0)
@@ -87,30 +87,30 @@ bool AbstractModel::setData(const QModelIndex &index, const QVariant &value, int
         return false;
     int row = index.row();
     int column = index.column();
-    if(row == this->sourceFiles.size()){
+    if(row == this->fileRepository.get_sourceFiles().size()){
         this->beginInsertRows(QModelIndex{}, row, row);
         if(column < 0 || column > 7)
             throw std::runtime_error("Table Error! Wrong column count!");
         if(column == 0)
-            this->sourceFiles.emplace_back(value.toString().toStdString(), "", Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
+            this->fileRepository.get_sourceFiles().emplace_back(value.toString().toStdString(), "", Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
         if(column == 1)
-            this->sourceFiles.emplace_back("", value.toString().toStdString(), Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
+            this->fileRepository.get_sourceFiles().emplace_back("", value.toString().toStdString(), Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
         if(column == 2)
-            this->sourceFiles.emplace_back("", "", Programmer{value.toString().toStdString(), NULL_INTEGER, NULL_INTEGER}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
+            this->fileRepository.get_sourceFiles().emplace_back("", "", Programmer{value.toString().toStdString(), NULL_INTEGER, NULL_INTEGER}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
         if(column == 3)
-            this->sourceFiles.emplace_back("", "", Programmer{"", std::stoi(value.toString().toStdString()), NULL_INTEGER}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
+            this->fileRepository.get_sourceFiles().emplace_back("", "", Programmer{"", std::stoi(value.toString().toStdString()), NULL_INTEGER}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
         if(column == 4)
-            this->sourceFiles.emplace_back("", "", Programmer{"", NULL_INTEGER, std::stoi(value.toString().toStdString())}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
+            this->fileRepository.get_sourceFiles().emplace_back("", "", Programmer{"", NULL_INTEGER, std::stoi(value.toString().toStdString())}, Programmer{"", NULL_INTEGER, NULL_INTEGER});
         if(column == 5)
-            this->sourceFiles.emplace_back("", "", Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{value.toString().toStdString(), NULL_INTEGER, NULL_INTEGER});
+            this->fileRepository.get_sourceFiles().emplace_back("", "", Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{value.toString().toStdString(), NULL_INTEGER, NULL_INTEGER});
         if(column == 6)
-            this->sourceFiles.emplace_back("", "", Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{"", std::stoi(value.toString().toStdString()), NULL_INTEGER});
+            this->fileRepository.get_sourceFiles().emplace_back("", "", Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{"", std::stoi(value.toString().toStdString()), NULL_INTEGER});
         if(column == 7)
-            this->sourceFiles.emplace_back("", "", Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{"", NULL_INTEGER, std::stoi(value.toString().toStdString())});
+            this->fileRepository.get_sourceFiles().emplace_back("", "", Programmer{"", NULL_INTEGER, NULL_INTEGER}, Programmer{"", NULL_INTEGER, std::stoi(value.toString().toStdString())});
         this->endInsertRows();
         return true;
     }
-    SourceFile& sourceFile = this->sourceFiles[row];
+    SourceFile sourceFile = this->fileRepository.get_sourceFiles()[row];
     if(column < 0 || column > 7)
         throw std::runtime_error("Table Error! Wrong column count!");
     if(column == 0)
@@ -129,15 +129,15 @@ bool AbstractModel::setData(const QModelIndex &index, const QVariant &value, int
         sourceFile.get_reviewerProgrammer().set_revisedFiles(std::stoi(value.toString().toStdString()));
     if(column == 7)
         sourceFile.get_reviewerProgrammer().set_mustRevise(std::stoi(value.toString().toStdString()));
-    this->sourceFiles[row] = sourceFile;
+    this->fileRepository.get_sourceFiles()[row] = sourceFile;
     emit dataChanged(index, index);
     return true;
 }
 
 void AbstractModel::updateSourceFiles(const std::vector<SourceFile> newSourceFiles) {
-    this->sourceFiles = newSourceFiles;
+    this->fileRepository.get_sourceFiles() = newSourceFiles;
 }
 
-void AbstractModel::updateData() {
+void AbstractModel::updateInternalData() {
     endResetModel();
 }
