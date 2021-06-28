@@ -4,11 +4,12 @@
 
 #ifndef QT_SOURCEFILEREPOSITORY_H
 #include "Repository.h"
+#include "Observer.h"
 #include <fstream>
 #define QT_SOURCEFILEREPOSITORY_H
 
 
-class SourceFileRepository: public Repository<SourceFile>{
+class SourceFileRepository: public Repository<SourceFile>,public ObserverWindow{
 private:
     std::vector<SourceFile> sourceFiles;
     void save_to_file() override;

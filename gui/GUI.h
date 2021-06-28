@@ -3,7 +3,7 @@
 //
 
 #ifndef QT_GUI_H
-#include "Service.h"
+#include "Service.h" //useless
 #include "Observer.h"
 #include <QWidget>
 #include <QListWidget>
@@ -24,21 +24,24 @@
 class GUI: public QWidget,public Observer{
     Q_OBJECT
 private:
-    Service& service;
+    Programmer& programmer;
+    SourceFileRepository& sourceFileRepository;
+    QLineEdit* file_name;
+    QVBoxLayout* main;
+    QGridLayout* buttons;
     AbstractModel* table;
     QTableView* table_view;
-    QPushButton* revision, *add;
-    QLineEdit* file_name;
-    std::vector<SourceFile> sourceFiles;
+    QSortFilterProxyModel* filterProxyModel;
+    QPushButton* add, *revise;
+public:
+    explicit GUI(Programmer& _programmer, SourceFileRepository& _sourceFileRepository, QWidget* parent = nullptr);
+    ~GUI() override{;}
     void init_gui();
     void connect_signal_and_slots();
-    void revisionButton_handler();
-    void notify_model();
-    void checkIfReviseAvailable();
-public:
-    explicit GUI(Service& _service, QWidget* parent= nullptr);
-    ~GUI() override{;}
     void update() override;
+    void notify_model();
+    void revisionButton_handler();
+    int get_selected_index();
 public slots:
     void addButton_handler();
 };

@@ -10,6 +10,7 @@ bool SourceFileRepository::add(const SourceFile &sourceFile) {
             return false;
     this->sourceFiles.push_back(sourceFile);
     this->save_to_file();
+    this->notify();
     return true;
 }
 

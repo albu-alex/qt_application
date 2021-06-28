@@ -4,11 +4,12 @@
 
 #ifndef QT_PROGRAMMERREPOSITORY_H
 #include "Repository.h"
+#include "Observer.h"
 #include <fstream>
 #define QT_PROGRAMMERREPOSITORY_H
 
 
-class ProgrammerRepository: public Repository<Programmer>{
+class ProgrammerRepository: public Repository<Programmer>, public ObserverWindow{
 private:
     std::vector<Programmer> programmers;
     void save_to_file() override;

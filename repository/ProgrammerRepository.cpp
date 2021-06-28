@@ -9,6 +9,7 @@ bool ProgrammerRepository::add(const Programmer &programmer) {
         if(p == programmer)
             return false;
     this->programmers.push_back(programmer);
+    this->notify();
     return true;
 }
 
